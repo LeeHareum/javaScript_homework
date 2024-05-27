@@ -1,0 +1,18 @@
+.app {
+  font-weight: bold;
+  width: 280px;
+  margin-left: 30px;
+  background-color: rgb(113, 194, 174);
+  padding: 30px;
+  color: rgb(255, 255, 255);
+  border-radius: 10px 40px;
+}
+.app button {
+  font-weight: bold;
+  background-color: rgb(122, 169, 216);
+  margin-right: 3px;
+}
+.app button:hover {
+  cursor: pointer;
+  background-color: rgb(157, 186, 228);
+}
