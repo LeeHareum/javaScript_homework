@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [input, setInput] = useState("");
-  const [todos, setTodo] = useState([
+  const [todos, setTodos] = useState([
     {
       id: 1,
       text: "베이직과제",
@@ -21,21 +21,33 @@ function App() {
   };
 
   const handleAddTodo = (e) => {
-    e.prventDefault();
+    e.preventDefault();
     if (!input.trim()) return;
     const newTodo = {
       id: uuidv4(),
       text: input,
       completed: false,
     };
-    setTodo([...todos, newTodo]);
+    setTodos([...todos, newTodo]);
     setInput("");
+  };
+
+  const handleDelete = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleToggle = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   return (
     <div>
       <h1>할 일 목록</h1>
-      <form onChange={handleAddTodo}>
+      <form onSubmit={handleAddTodo}>
         <input
           type="text"
           placeholder="할 일을 추가하세요"
@@ -52,8 +64,20 @@ function App() {
             style={{ textDecoration: todo.completed ? "line-through" : "none" }}
           >
             {todo.text}
-            <button>완료</button>
-            <button>삭제</button>
+            <button
+              onClick={() => {
+                handleToggle(todo.id);
+              }}
+            >
+              {todo.completed ? "취소" : "완료"}
+            </button>
+            <button
+              onClick={() => {
+                handleDelete(todo.id);
+              }}
+            >
+              삭제
+            </button>
           </li>
         ))}
       </ul>
